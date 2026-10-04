@@ -96,3 +96,12 @@ html,body{background:#f3eee8}
 #memory-film{display:block;width:100%;height:100%;max-height:82dvh;background:#070506;object-fit:contain}
 @media(max-width:850px){.header-actions{gap:5px}.media-button,.view-photo{padding:7px 9px}.film-shell{grid-template-columns:1fr}.film-heading{display:none}#memory-film{height:auto;min-height:220px}}
 @media(max-width:560px){.book-header{grid-template-columns:auto 1fr}.book-header>span{display:none}.header-actions{grid-column:1/-1;width:100%;justify-content:center}.media-button,.view-photo{font-size:9px;padding:6px 8px}#film-viewer{width:100vw;border-radius:0}}
+
+/* Class roster on the opening endpaper */
+.roster-page{position:absolute;inset:8.5% 8.5% 7%;color:#5c3b42}
+.roster-page h2{margin:2.2cqw 0 1.2cqw;font:400 4.7cqw/1.2 var(--book-serif);letter-spacing:.08em;color:#6f2f3d}
+.roster-intro{margin:0 0 4cqw;font:1.65cqw/1.65 var(--book-serif);color:#8b6d73}
+.roster-list{display:grid;grid-auto-flow:column;grid-template-rows:repeat(11,1fr);grid-template-columns:repeat(5,1fr);column-gap:2cqw;row-gap:1.45cqw;margin:0;padding:4cqw 3.2cqw;list-style:none;border-top:1px solid #cbb0b2;border-bottom:1px solid #cbb0b2;background:rgb(255 251 245 / 45%)}
+.roster-list li{position:relative;padding-left:1.5cqw;white-space:nowrap;font:2.02cqw/1.35 var(--book-serif);letter-spacing:.08em;color:#493438}
+.roster-list li::before{position:absolute;left:0;top:.58em;width:.55cqw;height:.55cqw;border-radius:50%;background:#a56a75;content:""}
+.roster-foot{margin:3.4cqw 0 0;text-align:right;font:1.55cqw/1.7 var(--book-serif);color:#967b80}
