@@ -85,8 +85,12 @@ html,body{background:#f3eee8}
 .media-button:hover,.media-button[aria-pressed="true"]{background:#efe0df}
 .media-button.primary{background:#712e3f;color:#fff;border-color:#712e3f}
 .media-button.primary:hover{background:#8a4052}
+html.wechat-browser .header-actions{flex-wrap:wrap}
+html.wechat-browser .header-actions::after{content:"微信内请先点“开启音乐”；视频将由微信播放器打开。";flex-basis:100%;text-align:center;color:#8a6670;font:10px/1.45 var(--book-sans)}
 #film-viewer{border:0;padding:0;background:#180f13;color:#fff;width:min(94vw,1120px);max-width:none;border-radius:12px;overflow:hidden;box-shadow:0 24px 90px #160a0ecc}
 #film-viewer::backdrop{background:#170c11e8;backdrop-filter:blur(4px)}
+#film-viewer.fallback-open{position:fixed;inset:0;z-index:1000;margin:auto;max-height:100vh}
+body.media-open{overflow:hidden}
 #close-film{position:absolute;top:12px;right:16px;z-index:3;width:38px;height:38px;border:0;border-radius:50%;background:#fff2;color:#fff;font:28px/1 var(--book-sans);cursor:pointer}
 .film-shell{display:grid;grid-template-columns:minmax(210px,27%) 1fr;min-height:420px}
 .film-heading{padding:54px 34px;background:linear-gradient(150deg,#713142,#3c1c28);display:flex;flex-direction:column;justify-content:center}
