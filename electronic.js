@@ -5,6 +5,7 @@ const filmVideo=document.querySelector('#memory-film');
 const filmButton=document.querySelector('#open-film');
 const closeFilmButton=document.querySelector('#close-film');
 const filmSource=filmVideo.querySelector('source');
+const filmDirect=document.querySelector('.film-direct');
 const isWeChat=/MicroMessenger/i.test(navigator.userAgent);
 let musicWanted=false;
 let resumeMusicAfterFilm=false;
@@ -26,6 +27,9 @@ musicButton.addEventListener('click',async()=>{
   syncMusicButton();
 });
 ['play','pause','error'].forEach(type=>bgm.addEventListener(type,syncMusicButton));
+['waiting','stalled'].forEach(type=>bgm.addEventListener(type,()=>{
+  if(musicWanted)musicButton.textContent='音乐缓冲中…';
+}));
 document.addEventListener('WeixinJSBridgeReady',()=>{
   bgm.load();
   if(musicWanted)bgm.play().catch(()=>{});
@@ -43,11 +47,15 @@ filmButton.addEventListener('click',async()=>{
   bgm.pause();
   if(isWeChat){
     const directUrl=new URL(filmVideo.dataset.wechatSrc||filmSource.getAttribute('src'),location.href).href;
-    location.href=directUrl;
-    return;
+    if(filmVideo.getAttribute('src')!==directUrl){
+      filmVideo.setAttribute('src',directUrl);
+      filmDirect.setAttribute('href',directUrl);
+      filmVideo.load();
+    }
   }
   showFilm();
-  try{await filmVideo.play();}catch(_){}
+  filmButton.textContent=isWeChat?'正在加载影片…':'播放影片 ▶';
+  try{await filmVideo.play();}catch(_){filmButton.textContent=isWeChat?'点此重试影片 ▶':'播放影片 ▶';}
 });
 closeFilmButton.addEventListener('click',closeFilm);
 film.addEventListener('click',event=>{if(event.target===film)closeFilm();});
@@ -63,6 +71,8 @@ filmVideo.addEventListener('ended',async()=>{
   if(resumeMusicAfterFilm&&musicWanted){try{await bgm.play();}catch(_){}}
   resumeMusicAfterFilm=false;
 });
+filmVideo.addEventListener('playing',()=>{filmButton.textContent=isWeChat?'微信播放影片 ▶':'播放影片 ▶';});
+filmVideo.addEventListener('error',()=>{filmButton.textContent=isWeChat?'视频加载失败，点此重试':'播放影片 ▶';});
 document.addEventListener('visibilitychange',async()=>{
   if(document.visibilityState==='visible'&&musicWanted&&bgm.paused&&!film.open){
     try{await bgm.play();}catch(_){}
