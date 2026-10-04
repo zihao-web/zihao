@@ -105,3 +105,10 @@ html,body{background:#f3eee8}
 .roster-list li{position:relative;padding-left:1.5cqw;white-space:nowrap;font:2.02cqw/1.35 var(--book-serif);letter-spacing:.08em;color:#493438}
 .roster-list li::before{position:absolute;left:0;top:.58em;width:.55cqw;height:.55cqw;border-radius:50%;background:#a56a75;content:""}
 .roster-foot{margin:3.4cqw 0 0;text-align:right;font:1.55cqw/1.7 var(--book-serif);color:#967b80}
+
+/* Mobile-compatible film wrapper and native-player fallback. */
+.film-player{position:relative;display:grid;min-width:0;min-height:0;background:#070506}
+.film-player #memory-film{grid-area:1/1}
+.film-direct{position:absolute;top:12px;left:12px;z-index:2;padding:7px 11px;border:1px solid rgb(255 255 255 / 35%);border-radius:18px;background:rgb(20 10 14 / 72%);color:#fff;text-decoration:none;font:11px var(--book-sans);backdrop-filter:blur(5px)}
+.film-direct:hover{background:rgb(113 46 63 / 90%)}
+@media(max-width:850px){.film-shell{min-height:0}.film-player{min-height:0}.film-player #memory-film{width:100%;height:auto;min-height:0;aspect-ratio:16/9}}
