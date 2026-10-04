@@ -42,7 +42,7 @@ filmButton.addEventListener('click',async()=>{
   resumeMusicAfterFilm=musicWanted&&!bgm.paused;
   bgm.pause();
   if(isWeChat){
-    const directUrl=new URL(filmSource.getAttribute('src'),location.href).href;
+    const directUrl=new URL(filmVideo.dataset.wechatSrc||filmSource.getAttribute('src'),location.href).href;
     location.href=directUrl;
     return;
   }
