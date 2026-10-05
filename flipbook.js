@@ -50,7 +50,7 @@ const pageFlip = new St.PageFlip(bookElement, {
   maxShadowOpacity: 0.42,
   showCover: true,
   mobileScrollSupport: false,
-  clickEventForward: true,
+  clickEventForward: false,
   useMouseEvents: true,
   swipeDistance: 24,
   showPageCorners: true,
@@ -115,6 +115,35 @@ previousButton.addEventListener("click", () => {
 
 nextButton.addEventListener("click", () => {
   if (!isTurning) {
+    prepareForwardPages();
+    pageFlip.flipNext("bottom");
+  }
+});
+
+// 左右点击翻页：左1/3往前翻，右1/3往后翻
+let touchStartX = 0;
+let touchStartY = 0;
+bookElement.addEventListener("pointerdown", (e) => {
+  touchStartX = e.clientX;
+  touchStartY = e.clientY;
+}, { passive: true });
+
+bookElement.addEventListener("click", (e) => {
+  if (isTurning) return;
+  // 如果是拖拽翻书角，不触发
+  const dragDistance = Math.abs(e.clientX - touchStartX) + Math.abs(e.clientY - touchStartY);
+  if (dragDistance > 10) return;
+  
+  const rect = bookElement.getBoundingClientRect();
+  const x = e.clientX - rect.left;
+  const ratio = x / rect.width;
+  
+  if (ratio < 0.33) {
+    // 左侧区域：上一页
+    prepareBackwardPages();
+    pageFlip.flipPrev("bottom");
+  } else if (ratio > 0.67) {
+    // 右侧区域：下一页
     prepareForwardPages();
     pageFlip.flipNext("bottom");
   }
